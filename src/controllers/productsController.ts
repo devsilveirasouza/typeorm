@@ -7,7 +7,7 @@ export const getAllProductController = async (req: Request, res: Response) => {
 }
 
 export const createProductController = async (req: Request, res: Response) => {
-    const productObject = req.body
-    const newProduct = await createProductService(productObject)
+    const { name, price, category } = req.body
+    const newProduct = await createProductService({ name, price, category })
     res.json(newProduct)
 }

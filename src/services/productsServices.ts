@@ -1,13 +1,21 @@
 import { ProductModelRepository } from "../config/data-source";
+import { ProductsEntity } from "../entity/ProductsEntity";
 
 export const getAllProductsService = async () => {
     const products = await ProductModelRepository.find();
     return products
 }
 
-export const createProductService = async (productObject: any) => {
+interface createProductDto {
+    name: string;
+    price: number; 
+    category: string;
+}
+
+export const createProductService = async (productObject: createProductDto): Promise<ProductsEntity> => {
     const { name, price, category } = productObject
     const newProduct = await ProductModelRepository.create({ name, price, category })
-    await ProductModelRepository.save(newProduct);
-    return newProduct
+    const savedProduct = await ProductModelRepository.save(newProduct);
+    return savedProduct;
 }
+
