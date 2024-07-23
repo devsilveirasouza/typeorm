@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createProductService, getAllProductsService, updateProductService } from "../services/productsServices";
+import { createProductService, deleteProductService, getAllProductsService, updateProductService } from "../services/productsServices";
 
 export const getAllProductController = async (req: Request, res: Response) => {
     const products = await getAllProductsService()
@@ -18,3 +18,9 @@ export const updateProductController = async (req: Request, res: Response) => {
     const updatedProduct = await updateProductService(+id, { name, price, category })
     res.json(updatedProduct)
 };
+
+export const deleteProductController = async ( req: Request, res: Response) => {
+    const { id } = req.body
+    const deletedProduct = await deleteProductService(id)
+    res.json(deletedProduct)
+}

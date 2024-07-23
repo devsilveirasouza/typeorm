@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource({
     entities: [ProductsEntity],
     migrations: [],
     subscribers: [],
-    dropSchema: false,
+    dropSchema: false,// Este parâmetro apaga a tabela se estiver: true
 })
 
 export const ProductModelRepository = AppDataSource.getRepository(ProductsEntity)

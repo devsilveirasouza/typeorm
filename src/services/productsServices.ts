@@ -16,11 +16,18 @@ export const createProductService = async (productObject: createProductDto): Pro
 
 export const updateProductService = async (id: number, productObject: createProductDto) => {
     const { name, price, category } = productObject;
-    const productFound = await ProductModelRepository.findOneBy({ id: id });
+    const productFound = await ProductModelRepository.findOneBy({ id });
     if (!productFound) throw new Error("Product not found")
     productFound.name = productObject.name;
     productFound.price = productObject.price;
     productFound.category = productObject.category;
     await ProductModelRepository.save(productFound);
+    return productFound;
+};
+
+export const deleteProductService = async (id: number) => {
+    const productFound = await ProductModelRepository.findOneBy({ id });
+    if (!productFound) throw new Error("Product not found");
+    await ProductModelRepository.delete(id);
     return productFound;
 };
